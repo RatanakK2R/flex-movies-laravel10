@@ -25,11 +25,12 @@ use Illuminate\Support\Facades\Route;
 //     // Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
 // });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'admin',])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'admin',])->name('dashboard');
 
-// Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+//Movies Dashboard
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth', 'admin',]);
 
 Route::get('/', function () {
     return view('index');
