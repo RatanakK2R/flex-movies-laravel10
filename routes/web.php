@@ -75,3 +75,5 @@ Route::get('/contact', function () {
 
 // Movies Routes
 Route::resource('movies', MovieController::class);
+Route::post('movies/create', [App\Http\Controllers\MovieController::class, 'create']);
+Route::delete('/movies/{id}', [App\Http\Controllers\MovieController::class, 'destroy'])->name('movies.destroy');

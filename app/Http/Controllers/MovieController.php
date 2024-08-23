@@ -6,6 +6,7 @@ use App\Models\Movie;
 use App\Models\Category;
 use App\Models\Actor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
 {
@@ -43,36 +44,45 @@ class MovieController extends Controller
 
     public function store(Request $request)
     {
-        // Validate request data
-        $request->validate([
-            'title' => 'required|string',
-            'description' => 'nullable|string',
-            'release_year' => 'required|integer',
-            'duration' => 'nullable|integer',
-            'quality' => 'nullable|string',
-            'language' => 'nullable|array', // Expect an array for language
-            'type' => 'required|string',
-            'video' => 'nullable|file|mimes:mp4,mkv,avi',
-            'watch_link' => 'nullable|url',
-            // Add validation for other fields as necessary
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'release_year' => 'required|integer|min:1900|max:'.date('Y'),
+            'duration' => 'required|integer|min:1',
+            'quality' => 'required|string',
+            'categories' => 'required|array',
+            'categories.*' => 'string',
+            'language' => 'required|array',
+            'type' => 'required|in:movie,tv_show', // Ensure this matches the form values
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
+            'video_url' => 'nullable|mimes:mp4,mov,avi,wmv|max:102400',
         ]);
 
-        // Handle file uploads
-        $data = $request->except(['cover', 'language']); // Exclude fields that are handled separately
-        $data['language'] = json_encode($request->language); // Convert array to JSON
+        $movie = new Movie();
+        $movie->title = $validatedData['title'];
+        $movie->description = $validatedData['description'];
+        $movie->release_year = $validatedData['release_year'];
+        $movie->duration = $validatedData['duration'];
+        $movie->quality = $validatedData['quality'];
+        $movie->language = json_encode($validatedData['language']);
+        $movie->type = $validatedData['type'];
 
-        $movie = Movie::create($data);
+        // Handle cover image upload
+    if ($request->hasFile('cover_image')) {
+        $coverImagePath = $request->file('cover_image')->store('cover_images', 'public');
+        $movie->cover_image = Storage::url($coverImagePath);
+    }
 
-        // Handle the cover image
-        if ($request->hasFile('cover')) {
-            $coverPath = $request->file('cover')->store('covers', 'public');
-            $movie->update(['cover' => $coverPath]);
-        }
+    // Handle video upload
+    if ($request->hasFile('video_url')) {
+        $videoPath = $request->file('video_url')->store('videos', 'public');
+        $movie->video_url = Storage::url($videoPath);
+    }
 
-        $movie->categories()->sync($request->categories);
-        $movie->actors()->sync($request->actors);
+    $movie->save();
 
-        return redirect()->route('movies.index');
+    return redirect()->route('movies.index')->with('success', 'Movie created successfully.');
+
     }
 
     public function edit(Movie $movie)
@@ -89,15 +99,32 @@ class MovieController extends Controller
 
     public function update(Request $request, Movie $movie)
     {
-        $movie->update($request->all());
+        // Validate the request data
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'year' => 'required|integer',
+            'categories' => 'required|array',
+            'actors' => 'required|array',
+            'language' => 'required|array',
+            // other fields validation...
+        ]);
+
+        // Update the movie details
+        $movie->update($validated);
+
+        // Sync the many-to-many relationships
         $movie->categories()->sync($request->categories);
         $movie->actors()->sync($request->actors);
-        return redirect()->route('movies.index');
+
+        // Redirect back to the movies index
+        return redirect()->route('movies.index')->with('success', 'Movie updated successfully!');
     }
 
-    public function destroy(Movie $movie)
+    public function destroy($id)
     {
+        $movie = Movie::findOrFail($id);
         $movie->delete();
-        return redirect()->route('movies.index');
+        return redirect()->route('movies.index')->with('success', 'Movie deleted successfully');
     }
+
 }

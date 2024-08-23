@@ -34,8 +34,8 @@
                                 <div class="col-12 col-sm-6 col-md-12">
                                     <div class="form__img">
                                         <label for="form__img-upload">Upload cover (190 x 270)</label>
-                                        <input id="form__img-upload" name="cover" type="file" accept=".png, .jpg, .jpeg">
-                                        <img id="form__img" src="{{ asset('storage/' . $movie->cover) }}" alt=" ">
+                                        <input id="form__img-upload" name="cover_image" type="file" accept=".png, .jpg, .jpeg">
+                                        <img id="form__img" value="{{ old('cover_image', $movie->cover_image) }}"  alt=" ">
                                     </div>
                                 </div>
                             </div>
@@ -78,10 +78,18 @@
 
                                 <div class="col-12 col-lg-6">
                                     <div class="form__group">
-                                        <select type="text" name="language[]" class="js-example-basic-multiple" id="country" multiple="multiple">
-                                            <option value="khmer" {{ in_array('khmer', (array) $movie->languages) ? 'selected' : '' }}>Khmer</option>
-                                            <option value="english" {{ in_array('english', (array) $movie->languages) ? 'selected' : '' }}>English</option>
+                                        <select name="language[]" class="js-example-basic-multiple" id="country" multiple>
+                                            @foreach(['khmer', 'english'] as $language)
+                                                <option value="{{ $language }}"
+                                                    @if(in_array($language, json_decode($movie->language, true))) selected @endif>
+                                                    {{ ucfirst($language) }}
+                                                </option>
+                                            @endforeach
                                         </select>
+                                        {{-- <select type="text" name="language[]" class="js-example-basic-multiple" id="country" multiple="multiple" >
+                                            <option value="khmer" {{ $movie->language == 'khmer' ? 'selected' : '' }}>Khmer</option>
+                                            <option value="english" {{ in_array('english', (array) $movie->language) ? 'selected' : '' }}>English</option>
+                                        </select> --}}
                                     </div>
                                 </div>
 
@@ -98,7 +106,7 @@
                                 <div class="col-12">
                                     <div class="form__gallery">
                                         <label id="gallery1" for="form__gallery-upload">Upload photos</label>
-                                        <input data-name="#gallery1" id="form__gallery-upload" name="photos[]" class="form__gallery-upload" type="file" accept=".png, .jpg, .jpeg" multiple>
+                                        <input data-name="#gallery1" id="form__gallery-upload" name="cover_image" class="form__gallery-upload" type="file" accept=".png, .jpg, .jpeg" multiple>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +139,7 @@
 
                                 <div class="col-12 col-lg-6">
                                     <div class="form__group form__group--link">
-                                        <input type="text" name="watch_link" class="form__input" placeholder="or add a link" value="{{ $movie->watch_link }}">
+                                        <input type="text" name="watch_link" class="form__input" placeholder="or add a link" value="{{ old('watch_link', $movie->watch_link) }}">
                                     </div>
                                 </div>
 

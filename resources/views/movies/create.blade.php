@@ -13,7 +13,7 @@
             </div>
             <!-- Display errors if any -->
             @if ($errors->any())
-                <div class="alert alert-danger">
+                <div class="alert alert-danger" style="color: red">
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -32,7 +32,7 @@
                                 <div class="col-12 col-sm-6 col-md-12">
                                     <div class="form__img">
                                         <label for="form__img-upload">Upload cover (190 x 270)</label>
-                                        <input id="form__img-upload" name="form__img-upload" type="file" accept=".png, .jpg, .jpeg">
+                                        <input id="form__img-upload" name="cover_image" type="file" accept=".png, .jpg, .jpeg">
                                         <img id="form__img" src="#" alt=" ">
                                     </div>
                                 </div>
@@ -103,7 +103,7 @@
                                 <div class="col-12">
                                     <div class="form__gallery">
                                         <label id="gallery1" for="form__gallery-upload">Upload photos</label>
-                                        <input data-name="#gallery1" id="form__gallery-upload" name="gallery[]" class="form__gallery-upload" type="file" accept=".png, .jpg, .jpeg" multiple>
+                                        <input data-name="#gallery1" id="form__gallery-upload" name="cover_image" class="form__gallery-upload" type="file" accept=".png, .jpg, .jpeg" multiple>
                                     </div>
                                 </div>
                             </div>
@@ -115,22 +115,22 @@
                                     <span>Item type:</span>
                                 </li>
                                 <li>
-                                    <input id="type1" type="radio" name="type" value="Movie" checked>
+                                    <input id="type1" type="radio" name="type" value="movie" checked>
                                     <label for="type1">Movie</label>
                                 </li>
                                 <li>
-                                    <input id="type2" type="radio" name="type" value="TV Show">
+                                    <input id="type2" type="radio" name="type" value="tv_show">
                                     <label for="type2">TV Show</label>
                                 </li>
                             </ul>
-                        </div>
+                        </div>                        
                         
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-12 col-lg-6">
                                     <div class="form__video">
                                         <label id="movie1" for="form__video-upload">Upload video</label>
-                                        <input data-name="#movie1"  id="form__video-upload" name="video" class="form__video-upload" type="file" accept="video/mp4,video/x-m4v,video/*">
+                                        <input data-name="#movie1"  id="form__video-upload" name="video_url" class="form__video-upload" type="file" accept="video/mp4,video/x-m4v,video/*">
                                     </div>
                                 </div>
 
