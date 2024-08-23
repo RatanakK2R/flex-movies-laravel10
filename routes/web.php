@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\Settings\ProfileController;
@@ -26,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'admin',])->name('dashboard');
+
+// Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/', function () {
     return view('index');
@@ -77,3 +80,6 @@ Route::get('/contact', function () {
 Route::resource('movies', MovieController::class);
 Route::post('movies/create', [App\Http\Controllers\MovieController::class, 'create']);
 Route::delete('/movies/{id}', [App\Http\Controllers\MovieController::class, 'destroy'])->name('movies.destroy');
+
+//Movies Comment
+Route::resource('comments', CommentController::class);
