@@ -126,12 +126,16 @@
                                     <span>Item type:</span>
                                 </li>
                                 <li>
-                                    <input id="type1" type="radio" name="type" value="movie" {{ $movie->type == 'movie' ? 'checked' : '' }}>
+                                    <input id="type1" type="radio" name="type" value="Movie" {{ $movie->type == 'Movie' ? 'checked' : '' }}>
                                     <label for="type1">Movie</label>
                                 </li>
                                 <li>
-                                    <input id="type2" type="radio" name="type" value="tv_show" {{ $movie->type == 'tv_show' ? 'checked' : '' }}>
+                                    <input id="type2" type="radio" name="type" value="TV Show" {{ $movie->type == 'TV Show' ? 'checked' : '' }}>
                                     <label for="type2">TV Show</label>
+                                </li>
+                                <li>
+                                    <input id="type3" type="radio" name="type" value="tv_show" {{ $movie->type == '3D' ? 'checked' : '' }}>
+                                    <label for="type3">3D</label>
                                 </li>
                             </ul>
                         </div>

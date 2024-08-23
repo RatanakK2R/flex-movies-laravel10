@@ -116,12 +116,16 @@
                                     <span>Item type:</span>
                                 </li>
                                 <li>
-                                    <input id="type1" type="radio" name="type" value="movie" checked>
+                                    <input id="type1" type="radio" name="type" value="Movie" checked>
                                     <label for="type1">Movie</label>
                                 </li>
                                 <li>
-                                    <input id="type2" type="radio" name="type" value="tv_show">
+                                    <input id="type2" type="radio" name="type" value="TV Show">
                                     <label for="type2">TV Show</label>
+                                </li>
+                                <li>
+                                    <input id="type3" type="radio" name="type" value="3D">
+                                    <label for="type3">3D</label>
                                 </li>
                             </ul>
                         </div>

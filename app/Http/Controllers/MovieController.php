@@ -53,7 +53,7 @@ class MovieController extends Controller
             'categories' => 'required|array',
             'categories.*' => 'integer|exists:categories,id',
             'language' => 'required|array',
-            'type' => 'required|in:movie,tv_show',
+            'type' => 'required|in:Movie,TV Show,3D',
             'cover_image.*' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
             'video_url' => 'nullable|mimes:mp4,mov,avi,wmv|max:102400',
         ]);
@@ -107,7 +107,7 @@ class MovieController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'type' => 'nullable|string|max:255',
+            'type' => 'nullable|in:Movie,TV Show,3D',
             'categories' => 'required|array',
             'language' => 'required|array',
             'cover_image.*' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
@@ -150,19 +150,17 @@ class MovieController extends Controller
         return redirect()->route('movies.index')->with('success', 'Movie updated successfully!');
     }
 
-    public function destroy($id)
+    public function updateStatus(Request $request, $id)
     {
+        // Find the movie by ID
         $movie = Movie::findOrFail($id);
 
-        if ($movie->cover_image) {
-            Storage::disk('public')->delete('cover_images/' . $movie->cover_image);
-        }
+        // Toggle the status
+        $newStatus = $movie->status === 'Visible' ? 'Hidden' : 'Visible';
+        $movie->status = $newStatus;
+        $movie->save();
 
-        if ($movie->video_url) {
-            Storage::disk('public')->delete('videos/' . $movie->video_url);
-        }
-
-        $movie->delete();
-        return redirect()->route('movies.index')->with('success', 'Movie deleted successfully');
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Movie status updated successfully.');
     }
 }

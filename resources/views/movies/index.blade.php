@@ -88,7 +88,7 @@
 										<div class="main__table-text">{{ $movie->views ?? '0' }}</div>
 									</td>
 									<td>
-										@if ($movie->status === 'Visible')
+                                        @if ($movie->status === 'Visible')
                                             <div class="main__table-text main__table-text--green">Visible</div>
                                         @else
                                             <div class="main__table-text main__table-text--red">Hidden</div>
@@ -99,7 +99,7 @@
 									</td>
 									<td>
 										<div class="main__table-btns">
-											<a href="#modal-status" class="main__table-btn main__table-btn--banned open-modal">
+                                            <a href="#modal-status-{{ $movie->id }}" class="main__table-btn main__table-btn--banned open-modal">
 												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,13a1.49,1.49,0,0,0-1,2.61V17a1,1,0,0,0,2,0V15.61A1.49,1.49,0,0,0,12,13Zm5-4V7A5,5,0,0,0,7,7V9a3,3,0,0,0-3,3v7a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V12A3,3,0,0,0,17,9ZM9,7a3,3,0,0,1,6,0V9H9Zm9,12a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V12a1,1,0,0,1,1-1H17a1,1,0,0,1,1,1Z"/></svg>
 											</a>
 											{{-- <a href="{{ route('movies.show', $movie->id) }}" class="main__table-btn main__table-btn--view">
@@ -162,16 +162,18 @@
 	<!-- modal status -->
 
     @foreach ($movies as $movie)
-	<div id="modal-status" class="zoom-anim-dialog mfp-hide modal">
-		<h6 class="modal__title">Status change</h6>
+        <div id="modal-status-{{ $movie->id }}" class="zoom-anim-dialog mfp-hide modal">
+            <h6 class="modal__title">Status Change</h6>
 
-		<p class="modal__text">Are you sure about immediately change status?</p>
+            <p class="modal__text">Are you sure you want to change the status of this movie?</p>
 
-		<div class="modal__btns">
-			<button class="modal__btn modal__btn--apply" type="button">Apply</button>
-			<button class="modal__btn modal__btn--dismiss" type="button">Dismiss</button>
-		</div>
-	</div>
+            <form class="modal__btns" action="{{ route('movies.updateStatus', ['id' => $movie->id]) }}" method="POST">
+                @csrf
+                @method('PATCH')
+                <button class="modal__btn modal__btn--apply" type="submit">Apply</button>
+                <button class="modal__btn modal__btn--dismiss" type="button">Dismiss</button>
+            </form>
+        </div>
 	<!-- end modal status -->
 
 	<!-- modal delete -->
