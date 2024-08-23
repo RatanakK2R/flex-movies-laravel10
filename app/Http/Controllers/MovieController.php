@@ -67,22 +67,26 @@ class MovieController extends Controller
         $movie->language = json_encode($validatedData['language']);
         $movie->type = $validatedData['type'];
 
+        $category = new Category();
+        $category->category = $validatedData['categories'];
+
         // Handle cover image upload
-    if ($request->hasFile('cover_image')) {
-        $coverImagePath = $request->file('cover_image')->store('cover_images', 'public');
-        $movie->cover_image = Storage::url($coverImagePath);
-    }
+        if ($request->hasFile('cover_image')) {
+            $coverImage = $request->file('cover_image');
+            $coverImagePath = $coverImage->storeAs('cover_images', $coverImage->getClientOriginalName(), 'public');
+            $movie->cover_image = $coverImage->getClientOriginalName();
+        }
 
-    // Handle video upload
-    if ($request->hasFile('video_url')) {
-        $videoPath = $request->file('video_url')->store('videos', 'public');
-        $movie->video_url = Storage::url($videoPath);
-    }
+        // Handle video upload
+        if ($request->hasFile('video_url')) {
+            $video = $request->file('video_url');
+            $videoPath = $video->storeAs('videos', $video->getClientOriginalName(), 'public');
+            $movie->video_url = $video->getClientOriginalName();
+        }
 
-    $movie->save();
+        $movie->save();
 
-    return redirect()->route('movies.index')->with('success', 'Movie created successfully.');
-
+        return redirect()->route('movies.index')->with('success', 'Movie created successfully.');
     }
 
     public function edit(Movie $movie)
@@ -102,15 +106,41 @@ class MovieController extends Controller
         // Validate the request data
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'year' => 'required|integer',
+            'type' => 'nullable|string|max:255',
+            // 'year' => 'required|integer',
             'categories' => 'required|array',
-            'actors' => 'required|array',
+            // 'actors' => 'required|array',
             'language' => 'required|array',
-            // other fields validation...
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
+            'video_url' => 'nullable|mimes:mp4,mov,avi,wmv|max:102400',
         ]);
 
-        // Update the movie details
-        $movie->update($validated);
+        // Handle cover image upload
+        if ($request->hasFile('cover_image')) {
+            // Delete old cover image if exists
+            if ($movie->cover_image) {
+                Storage::disk('public')->delete('cover_images/' . $movie->cover_image);
+            }
+
+            $coverImage = $request->file('cover_image');
+            $coverImagePath = $coverImage->storeAs('cover_images', $coverImage->getClientOriginalName(), 'public');
+            $movie->cover_image = $coverImage->getClientOriginalName(); // Store the filename
+        }
+
+        // Handle video upload
+        if ($request->hasFile('video_url')) {
+            // Delete old video if exists
+            if ($movie->video_url) {
+                Storage::disk('public')->delete('videos/' . $movie->video_url);
+            }
+
+            $video = $request->file('video_url');
+            $videoPath = $video->storeAs('videos', $video->getClientOriginalName(), 'public');
+            $movie->video_url = $video->getClientOriginalName(); // Store the filename
+        }
+
+        // Update the movie details, excluding the file fields
+        $movie->update($request->except(['cover_image', 'video_url']));
 
         // Sync the many-to-many relationships
         $movie->categories()->sync($request->categories);
@@ -123,8 +153,16 @@ class MovieController extends Controller
     public function destroy($id)
     {
         $movie = Movie::findOrFail($id);
+
+        if ($movie->cover_image) {
+            Storage::disk('public')->delete('cover_images/' . $movie->cover_image);
+        }
+
+        if ($movie->video_url) {
+            Storage::disk('public')->delete('videos/' . $movie->video_url);
+        }
+
         $movie->delete();
         return redirect()->route('movies.index')->with('success', 'Movie deleted successfully');
     }
-
 }

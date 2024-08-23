@@ -68,6 +68,8 @@
                                 <div class="col-12 col-sm-6 col-lg-3">
                                     <div class="form__group">
                                         <select name="quality" class="js-example-basic-single" id="quality" required>
+                                            <option value="4K">4K</option>
+                                            <option value="2K">2K</option>
                                             <option value="FullHD">FullHD</option>
                                             <option value="HD">HD</option>
                                         </select>
@@ -86,7 +88,6 @@
                                             <option value="khmer" {{ in_array('khmer', old('language', $movie->language ?? [])) ? 'selected' : '' }}>Khmer</option>
                                             <option value="english" {{ in_array('english', old('language', $movie->language ?? [])) ? 'selected' : '' }}>English</option>
                                         </select>
-                                        
                                     </div>
                                 </div>
 
@@ -123,22 +124,22 @@
                                     <label for="type2">TV Show</label>
                                 </li>
                             </ul>
-                        </div>                        
-                        
+                        </div>
+
                         <div class="col-12">
                             <div class="row">
-                                <div class="col-12 col-lg-6">
+                                <div class="col-12 col-lg-12">
                                     <div class="form__video">
                                         <label id="movie1" for="form__video-upload">Upload video</label>
-                                        <input data-name="#movie1"  id="form__video-upload" name="video_url" class="form__video-upload" type="file" accept="video/mp4,video/x-m4v,video/*">
+                                        <input data-name="#movie1" id="form__video-upload" name="video_url" class="form__video-upload" type="file" accept="video/mp4,video/x-m4v,video/*">
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-lg-6">
-                                    <div class="form__group form__group--link">
-                                        <input type="text" name="watch_link" class="form__input" placeholder="or add a link">
-                                    </div>
-                                </div>
+{{--                                <div class="col-12 col-lg-6">--}}
+{{--                                    <div class="form__group form__group--link">--}}
+{{--                                        <input type="text" name="video_url" class="form__input" placeholder="or add a link">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
                                 <div class="col-12">
                                     <button type="submit" class="form__btn">publish</button>
@@ -158,31 +159,31 @@
         function handleFileSelect(event) {
             const files = event.target.files;
             const img = document.getElementById('form__img');
-    
+
             if (files && files[0]) {
                 const reader = new FileReader();
-    
+
                 reader.onload = function(e) {
                     img.src = e.target.result;
                     img.style.display = 'block'; // Ensure the image is displayed
                 };
-    
+
                 reader.readAsDataURL(files[0]);
             } else {
                 img.src = '#';
                 img.style.display = 'none'; // Hide the image if no file is selected
             }
         }
-    
+
         // Get references to the file inputs
         const galleryUpload = document.getElementById('form__gallery-upload');
         const coverUpload = document.getElementById('form__img-upload');
-    
+
         // Add event listeners
         galleryUpload.addEventListener('change', handleFileSelect);
         coverUpload.addEventListener('change', handleFileSelect);
     });
     </script>
-    
+
 <!-- end main content -->
 @endsection
