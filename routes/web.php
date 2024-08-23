@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Admin;
@@ -83,3 +84,6 @@ Route::delete('/movies/{id}', [App\Http\Controllers\MovieController::class, 'des
 
 //Movies Comment
 Route::resource('comments', CommentController::class);
+
+//Movies Reeview
+Route::resource('reviews', ReviewController::class);
