@@ -60,9 +60,9 @@ Route::get('/privacy', function () {
 
 Route::resource('users', UserController::class);
 
-Route::get('/comment', function () {
-    return view('comment');
-})->name('comment');
+// Route::get('/comment', function () {
+//     return view('comment');
+// })->name('comment');
 
 Route::get('/review', function () {
     return view('review');
