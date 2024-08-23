@@ -70,10 +70,10 @@
 										<div class="main__table-text">{{ $movie->id }}</div>
 									</td>
 									<td>
-										<div class="main__table-text"><a href="#">{{ $movie->title }}</a></div>
+										<div class="main__table-text">{{ $movie->title }}</div>
 									</td>
 									<td>
-										<div class="main__table-text"><a href="#">{{ $movie->type }}</a></div>
+										<div class="main__table-text">{{ $movie->type }}</div>
 									</td>
 									<td>
 										<div class="main__table-text main__table-text--rate">

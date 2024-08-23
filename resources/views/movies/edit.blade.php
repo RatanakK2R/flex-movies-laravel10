@@ -34,13 +34,12 @@
                                 <div class="col-12 col-sm-6 col-md-12">
                                     <div class="form__img">
                                         <label for="form__img-upload">Upload cover (190 x 270)</label>
-                                        <input id="form__img-upload" name="cover_image" type="file" accept=".png, .jpg, .jpeg">
+                                        <input data-name="#gallery1" id="form__img-upload" name="cover_image" type="file" accept=".jpeg,.png,.jpg,.webp,.svg">
                                         @if($movie->cover_image)
-                                            <p>Image here</p>
                                             <img
                                                 id="form__img"
                                                 src="{{ asset('storage/cover_images/' . $movie->cover_image) }}"
-                                                alt="Cover Image"
+                                                alt=" "
                                             >
                                         @endif
                                     </div>
@@ -115,7 +114,7 @@
                                 <div class="col-12">
                                     <div class="form__gallery">
                                         <label id="gallery1" for="form__gallery-upload">Upload photos</label>
-                                        <input data-name="#gallery1" id="form__gallery-upload" name="cover_image" class="form__gallery-upload" type="file" accept=".png, .jpg, .jpeg" multiple>
+                                        <input data-name="#gallery1" id="form__gallery-upload" name="cover_image" class="form__gallery-upload" type="file" accept="jpeg,.png,.jpg,.webp,.svg" multiple>
                                     </div>
                                 </div>
                             </div>
@@ -215,7 +214,7 @@
             if (imgElement) {
                 imgElement.style.display = 'block';
             } else {
-                imgElement.style.display = 'block';
+                imgElement.style.display = 'none';
                 return null;
             }
         }
