@@ -35,7 +35,14 @@
                                     <div class="form__img">
                                         <label for="form__img-upload">Upload cover (190 x 270)</label>
                                         <input id="form__img-upload" name="cover_image" type="file" accept=".png, .jpg, .jpeg">
-                                        <img id="form__img" value="{{ old('cover_image', $movie->cover_image) }}"  alt=" ">
+                                        @if($movie->cover_image)
+                                            <p>Image here</p>
+                                            <img
+                                                id="form__img"
+                                                src="{{ asset('storage/cover_images/' . $movie->cover_image) }}"
+                                                alt="Cover Image"
+                                            >
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -70,6 +77,8 @@
                                 <div class="col-12 col-sm-6 col-lg-3">
                                     <div class="form__group">
                                         <select name="quality" class="js-example-basic-single" id="quality">
+                                            <option value="4K" {{ $movie->quality == '4K' ? 'selected' : '' }}>4K</option>
+                                            <option value="2K" {{ $movie->quality == '2K' ? 'selected' : '' }}>2K</option>
                                             <option value="FullHD" {{ $movie->quality == 'FullHD' ? 'selected' : '' }}>FullHD</option>
                                             <option value="HD" {{ $movie->quality == 'HD' ? 'selected' : '' }}>HD</option>
                                         </select>
@@ -118,28 +127,28 @@
                                     <span>Item type:</span>
                                 </li>
                                 <li>
-                                    <input id="type1" type="radio" name="type" value="Movie" {{ $movie->type == 'Movie' ? 'checked' : '' }}>
+                                    <input id="type1" type="radio" name="type" value="movie" {{ $movie->type == 'movie' ? 'checked' : '' }}>
                                     <label for="type1">Movie</label>
                                 </li>
                                 <li>
-                                    <input id="type2" type="radio" name="type" value="TV Show" {{ $movie->type == 'TV Show' ? 'checked' : '' }}>
+                                    <input id="type2" type="radio" name="type" value="tv_show" {{ $movie->type == 'tv_show' ? 'checked' : '' }}>
                                     <label for="type2">TV Show</label>
                                 </li>
                             </ul>
                         </div>
-                        
+
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-12 col-lg-6">
                                     <div class="form__video">
                                         <label id="movie1" for="form__video-upload">Upload video</label>
-                                        <input data-name="#movie1" id="form__video-upload" name="video" class="form__video-upload" type="file" accept="video/mp4,video/x-m4v,video/*">
+                                        <input data-name="#movie1" id="form__video-upload" name="video_url" class="form__video-upload" type="file" accept="video/mp4,video/x-m4v,video/*">
                                     </div>
                                 </div>
 
                                 <div class="col-12 col-lg-6">
                                     <div class="form__group form__group--link">
-                                        <input type="text" name="watch_link" class="form__input" placeholder="or add a link" value="{{ old('watch_link', $movie->watch_link) }}">
+                                        <input type="text" disabled name="video_url_view" class="form__input" placeholder="or add a link" value="{{ $movie->video_url }}">
                                     </div>
                                 </div>
 
@@ -154,6 +163,20 @@
             <!-- end form -->
         </div>
     </div>
+    <!-- modal delete -->
+    <div id="modal-delete" class="zoom-anim-dialog mfp-hide modal">
+        <h6 class="modal__title">Item delete</h6>
+
+        <p class="modal__text">Are you sure to permanently delete this item?</p>
+
+        <form class="modal__btns" action="{{ route('movies.destroy', $movie->id) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button class="modal__btn modal__btn--apply" type="submit">Delete</button>
+            <button class="modal__btn modal__btn--dismiss" type="button">Dismiss</button>
+        </form>
+    </div>
+    <!-- end modal delete -->
 </main>
 
 <script>
@@ -162,27 +185,41 @@
         function handleFileSelect(event) {
             const files = event.target.files;
             const img = document.getElementById('form__img');
-    
+
             if (files && files[0]) {
                 const reader = new FileReader();
-    
+
                 reader.onload = function(e) {
                     img.src = e.target.result;
                     img.style.display = 'block'; // Ensure the image is displayed
                 };
-    
+
                 reader.readAsDataURL(files[0]);
             } else {
-                img.src = '{{ asset('storage/' . $movie->cover) }}';
-                img.style.display = 'block'; // Show existing image
+                img.src = '#';
+                img.style.display = 'none'; // Hide the image if no file is selected
             }
         }
-    
+
         // Get references to the file inputs
+        const galleryUpload = document.getElementById('form__gallery-upload');
         const coverUpload = document.getElementById('form__img-upload');
-    
+
         // Add event listeners
+        galleryUpload.addEventListener('change', handleFileSelect);
         coverUpload.addEventListener('change', handleFileSelect);
+
+
+        function getImageSrc() {
+            const imgElement = document.getElementById('form__img');
+            if (imgElement) {
+                imgElement.style.display = 'block';
+            } else {
+                imgElement.style.display = 'block';
+                return null;
+            }
+        }
+        const imageSrc = getImageSrc();
     });
 </script>
 <!-- end main content -->
