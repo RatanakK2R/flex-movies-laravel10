@@ -51,10 +51,10 @@ class MovieController extends Controller
             'duration' => 'required|integer|min:1',
             'quality' => 'required|string',
             'categories' => 'required|array',
-            'categories.*' => 'string',
+            'categories.*' => 'integer|exists:categories,id',
             'language' => 'required|array',
-            'type' => 'required|in:movie,tv_show', // Ensure this matches the form values
-            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
+            'type' => 'required|in:Movie,TV Show,3D',
+            'cover_image.*' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
             'video_url' => 'nullable|mimes:mp4,mov,avi,wmv|max:102400',
         ]);
 
@@ -67,24 +67,26 @@ class MovieController extends Controller
         $movie->language = json_encode($validatedData['language']);
         $movie->type = $validatedData['type'];
 
-        $category = new Category();
-        $category->category = $validatedData['categories'];
-
         // Handle cover image upload
         if ($request->hasFile('cover_image')) {
             $coverImage = $request->file('cover_image');
-            $coverImagePath = $coverImage->storeAs('cover_images', $coverImage->getClientOriginalName(), 'public');
-            $movie->cover_image = $coverImage->getClientOriginalName();
+            $coverImageName = time() . '_' . $coverImage->getClientOriginalName();
+            $coverImagePath = $coverImage->storeAs('cover_images', $coverImageName, 'public');
+            $movie->cover_image = $coverImageName;
         }
 
         // Handle video upload
         if ($request->hasFile('video_url')) {
             $video = $request->file('video_url');
-            $videoPath = $video->storeAs('videos', $video->getClientOriginalName(), 'public');
-            $movie->video_url = $video->getClientOriginalName();
+            $videoName = time() . '_' . $video->getClientOriginalName();
+            $videoPath = $video->storeAs('videos', $videoName, 'public');
+            $movie->video_url = $videoName;
         }
 
         $movie->save();
+
+        // Associate categories with the movie
+        $movie->categories()->attach($validatedData['categories']);
 
         return redirect()->route('movies.index')->with('success', 'Movie created successfully.');
     }
@@ -103,15 +105,12 @@ class MovieController extends Controller
 
     public function update(Request $request, Movie $movie)
     {
-        // Validate the request data
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'type' => 'nullable|string|max:255',
-            // 'year' => 'required|integer',
+            'type' => 'nullable|in:Movie,TV Show,3D',
             'categories' => 'required|array',
-            // 'actors' => 'required|array',
             'language' => 'required|array',
-            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
+            'cover_image.*' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
             'video_url' => 'nullable|mimes:mp4,mov,avi,wmv|max:102400',
         ]);
 
@@ -123,8 +122,9 @@ class MovieController extends Controller
             }
 
             $coverImage = $request->file('cover_image');
-            $coverImagePath = $coverImage->storeAs('cover_images', $coverImage->getClientOriginalName(), 'public');
-            $movie->cover_image = $coverImage->getClientOriginalName(); // Store the filename
+            $coverImageName = time() . '_' . $coverImage->getClientOriginalName();
+            $coverImagePath = $coverImage->storeAs('cover_images', $coverImageName, 'public');
+            $movie->cover_image = $coverImageName;
         }
 
         // Handle video upload
@@ -135,8 +135,9 @@ class MovieController extends Controller
             }
 
             $video = $request->file('video_url');
-            $videoPath = $video->storeAs('videos', $video->getClientOriginalName(), 'public');
-            $movie->video_url = $video->getClientOriginalName(); // Store the filename
+            $videoName = time() . '_' . $video->getClientOriginalName();
+            $videoPath = $video->storeAs('videos', $videoName, 'public');
+            $movie->video_url = $videoName;
         }
 
         // Update the movie details, excluding the file fields
@@ -146,23 +147,20 @@ class MovieController extends Controller
         $movie->categories()->sync($request->categories);
         $movie->actors()->sync($request->actors);
 
-        // Redirect back to the movies index
         return redirect()->route('movies.index')->with('success', 'Movie updated successfully!');
     }
 
-    public function destroy($id)
+    public function updateStatus(Request $request, $id)
     {
+        // Find the movie by ID
         $movie = Movie::findOrFail($id);
 
-        if ($movie->cover_image) {
-            Storage::disk('public')->delete('cover_images/' . $movie->cover_image);
-        }
+        // Toggle the status
+        $newStatus = $movie->status === 'Visible' ? 'Hidden' : 'Visible';
+        $movie->status = $newStatus;
+        $movie->save();
 
-        if ($movie->video_url) {
-            Storage::disk('public')->delete('videos/' . $movie->video_url);
-        }
-
-        $movie->delete();
-        return redirect()->route('movies.index')->with('success', 'Movie deleted successfully');
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Movie status updated successfully.');
     }
 }

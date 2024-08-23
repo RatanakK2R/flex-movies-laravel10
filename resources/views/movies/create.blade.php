@@ -32,7 +32,7 @@
                                 <div class="col-12 col-sm-6 col-md-12">
                                     <div class="form__img">
                                         <label for="form__img-upload">Upload cover (190 x 270)</label>
-                                        <input id="form__img-upload" name="cover_image" type="file" accept=".png, .jpg, .jpeg">
+                                        <input id="form__img-upload" name="cover_images" type="file" accept="jpeg,.png,.jpg,.webp,.svg">
                                         <img id="form__img" src="#" alt=" ">
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@
                                 <div class="col-12">
                                     <div class="form__gallery">
                                         <label id="gallery1" for="form__gallery-upload">Upload photos</label>
-                                        <input data-name="#gallery1" id="form__gallery-upload" name="cover_image" class="form__gallery-upload" type="file" accept=".png, .jpg, .jpeg" multiple>
+                                        <input data-name="#gallery1" id="form__gallery-upload" name="cover_image" class="form__gallery-upload" type="file" accept="jpeg,.png,.jpg,.webp,.svg" multiple>
                                     </div>
                                 </div>
                             </div>
@@ -116,12 +116,16 @@
                                     <span>Item type:</span>
                                 </li>
                                 <li>
-                                    <input id="type1" type="radio" name="type" value="movie" checked>
+                                    <input id="type1" type="radio" name="type" value="Movie" checked>
                                     <label for="type1">Movie</label>
                                 </li>
                                 <li>
-                                    <input id="type2" type="radio" name="type" value="tv_show">
+                                    <input id="type2" type="radio" name="type" value="TV Show">
                                     <label for="type2">TV Show</label>
+                                </li>
+                                <li>
+                                    <input id="type3" type="radio" name="type" value="3D">
+                                    <label for="type3">3D</label>
                                 </li>
                             </ul>
                         </div>
@@ -182,8 +186,20 @@
         // Add event listeners
         galleryUpload.addEventListener('change', handleFileSelect);
         coverUpload.addEventListener('change', handleFileSelect);
+
+
+        function getImageSrc() {
+            const imgElement = document.getElementById('form__img');
+            if (imgElement) {
+                imgElement.style.display = 'none';
+            } else {
+                imgElement.style.display = 'none';
+                return null;
+            }
+        }
+        const imageSrc = getImageSrc();
     });
-    </script>
+</script>
 
 <!-- end main content -->
 @endsection

@@ -81,10 +81,14 @@ Route::get('/contact', function () {
 // Movies Routes
 Route::resource('movies', MovieController::class);
 Route::post('movies/create', [App\Http\Controllers\MovieController::class, 'create']);
-Route::delete('/movies/{id}', [App\Http\Controllers\MovieController::class, 'destroy'])->name('movies.destroy');
+Route::delete('/movies/{id}', [MovieController::class, 'destroy'])->name('movies.destroy');
 
 //Movies Comment
 Route::resource('comments', CommentController::class);
 
 //Movies Reeview
 Route::resource('reviews', ReviewController::class);
+
+//Update Status
+Route::patch('/movies/{id}/update-status', [MovieController::class, 'updateStatus'])->name('movies.updateStatus');
+

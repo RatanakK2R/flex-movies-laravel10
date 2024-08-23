@@ -1,12 +1,12 @@
 		<!-- Favicons -->
 		<link rel="icon" type="image/png" href="assets/icon/favicon-32x32.png" sizes="32x32">
 		<link rel="apple-touch-icon" href="assets/icon/favicon-32x32.png">
-	
+
 		<meta name="description" content="">
 		<meta name="keywords" content="">
 		<meta name="author" content="movies">
 		<title>FlixTV – Movies & TV Shows, Online cinema HTML Template</title>
-	
+
 	</head>
 	<!-- header (hidden style) -->
 	<header class="header header--hidden">
@@ -28,7 +28,7 @@
 							<li class="header__nav-item">
 								{{-- <a class="header__nav-link" href="{{ route('home') }}" role="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> --}}
 								<a class="header__nav-link" href="{{ route('home') }}" role="button" id="dropdownMenu2" aria-expanded="false">
-									Home 
+									Home
 									{{-- <svg width="4" height="4" viewBox="0 0 4 4" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M1.93893 3.30334C1.08141 3.30334 0.384766 2.60669 0.384766 1.75047C0.384766 0.894254 1.08141 0.196308 1.93893 0.196308C2.79644 0.196308 3.49309 0.894254 3.49309 1.75047C3.49309 2.60669 2.79644 3.30334 1.93893 3.30334Z"/>
 									</svg> --}}
@@ -120,8 +120,8 @@
 						@endif
 						@if (Auth::check() && Auth::user()->is_admin == 1)
 							<button class="sidebar__user-img" type="button">
-								<img src="assets/img/user.svg" alt="#" style="border-radius: 40%">
-								<a href="{{route('dashboard')}}" style="margin-left: 10px, size: 30px">
+                                <a href="{{route('dashboard')}}" style="margin-left: 10px, size: 30px">
+								    <img src="assets/img/user.svg" alt="#" style="border-radius: 40%">
 									<span>{{ Auth::user()->name}}</span>
 								</a>
 							</button>
@@ -129,12 +129,12 @@
 
 						@if (Auth::check() && Auth::user()->is_admin == 0)
 							<button class="sidebar__user-img" type="button">
-								<img src="assets/img/user.svg" alt="#" style="border-radius: 40%">
-								<a href="{{route('profile')}}" style="margin-left: 10px, size: 30px">
+                                <a href="{{route('profile')}}" style="margin-left: 10px, size: 30px">
+								    <img src="assets/img/user.svg" alt="#" style="border-radius: 40%">
 									<span>{{ Auth::user()->name}}</span>
 								</a>
 							</button>
-						@endif						
+						@endif
 					</div>
 				</div>
 			</div>

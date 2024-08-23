@@ -34,13 +34,12 @@
                                 <div class="col-12 col-sm-6 col-md-12">
                                     <div class="form__img">
                                         <label for="form__img-upload">Upload cover (190 x 270)</label>
-                                        <input id="form__img-upload" name="cover_image" type="file" accept=".png, .jpg, .jpeg">
+                                        <input data-name="#gallery1" id="form__img-upload" name="cover_image" type="file" accept=".jpeg,.png,.jpg,.webp,.svg">
                                         @if($movie->cover_image)
-                                            <p>Image here</p>
                                             <img
                                                 id="form__img"
                                                 src="{{ asset('storage/cover_images/' . $movie->cover_image) }}"
-                                                alt="Cover Image"
+                                                alt=" "
                                             >
                                         @endif
                                     </div>
@@ -115,7 +114,7 @@
                                 <div class="col-12">
                                     <div class="form__gallery">
                                         <label id="gallery1" for="form__gallery-upload">Upload photos</label>
-                                        <input data-name="#gallery1" id="form__gallery-upload" name="cover_image" class="form__gallery-upload" type="file" accept=".png, .jpg, .jpeg" multiple>
+                                        <input data-name="#gallery1" id="form__gallery-upload" name="cover_image" class="form__gallery-upload" type="file" accept="jpeg,.png,.jpg,.webp,.svg" multiple>
                                     </div>
                                 </div>
                             </div>
@@ -127,12 +126,16 @@
                                     <span>Item type:</span>
                                 </li>
                                 <li>
-                                    <input id="type1" type="radio" name="type" value="movie" {{ $movie->type == 'movie' ? 'checked' : '' }}>
+                                    <input id="type1" type="radio" name="type" value="Movie" {{ $movie->type == 'Movie' ? 'checked' : '' }}>
                                     <label for="type1">Movie</label>
                                 </li>
                                 <li>
-                                    <input id="type2" type="radio" name="type" value="tv_show" {{ $movie->type == 'tv_show' ? 'checked' : '' }}>
+                                    <input id="type2" type="radio" name="type" value="TV Show" {{ $movie->type == 'TV Show' ? 'checked' : '' }}>
                                     <label for="type2">TV Show</label>
+                                </li>
+                                <li>
+                                    <input id="type3" type="radio" name="type" value="tv_show" {{ $movie->type == '3D' ? 'checked' : '' }}>
+                                    <label for="type3">3D</label>
                                 </li>
                             </ul>
                         </div>
@@ -215,7 +218,7 @@
             if (imgElement) {
                 imgElement.style.display = 'block';
             } else {
-                imgElement.style.display = 'block';
+                imgElement.style.display = 'none';
                 return null;
             }
         }
