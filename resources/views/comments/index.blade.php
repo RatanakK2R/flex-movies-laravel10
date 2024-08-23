@@ -10,7 +10,7 @@
                 <div class="main__title">
                     <h2>Comments</h2>
 
-                    <span class="main__title-stat">21 356 total</span>
+                    <span class="main__title-stat">{{ $comments->total() }} total</span>
 
                     <div class="main__title-wrap">
                         <!-- filter sort -->
@@ -59,36 +59,47 @@
                         </thead>
 
                         <tbody>
+                            @foreach($comments as $comment)
                             <tr>
                                 <td>
-                                    <div class="main__table-text">23</div>
+                                    <div class="main__table-text">{{ $comment->id }}</div>
                                 </td>
                                 <td>
-                                    <div class="main__table-text"><a href="#">I Dream in Another Language</a></div>
+                                    <div class="main__table-text"><a href="#">{{ $comment->movie->title }}</a></div>
                                 </td>
                                 <td>
-                                    <div class="main__table-text">Jonathan Banks</div>
+                                    <div class="main__table-text">{{ $comment->user->name }}</div>
                                 </td>
                                 <td>
-                                    <div class="main__table-text">Lorem Ipsum is simply dummy text...</div>
+                                    <div class="main__table-text">{{ Str::limit($comment->text, 50) }}</div>
                                 </td>
                                 <td>
-                                    <div class="main__table-text">12 / 7</div>
+                                    <div class="main__table-text">{{ $comment->likes }} / {{ $comment->dislikes }}</div>
                                 </td>
                                 <td>
-                                    <div class="main__table-text">24 Oct 2021</div>
+                                    <div class="main__table-text">{{ $comment->created_at->format('d M Y') }}</div>
                                 </td>
                                 <td>
                                     <div class="main__table-btns">
                                         <a href="#modal-view" class="main__table-btn main__table-btn--view open-modal">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.92,11.6C19.9,6.91,16.1,4,12,4S4.1,6.91,2.08,11.6a1,1,0,0,0,0,.8C4.1,17.09,7.9,20,12,20s7.9-2.91,9.92-7.6A1,1,0,0,0,21.92,11.6ZM12,18c-3.17,0-6.17-2.29-7.9-6C5.83,8.29,8.83,6,12,6s6.17,2.29,7.9,6C18.17,15.71,15.17,18,12,18ZM12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Zm0,6a2,2,0,1,1,2-2A2,2,0,0,1,12,14Z"/></svg>
                                         </a>
-                                        <a href="#modal-delete" class="main__table-btn main__table-btn--delete open-modal">
+                                        {{-- <a href="#modal-delete" class="main__table-btn main__table-btn--delete open-modal">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10,18a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,10,18ZM20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Zm-3-1a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,14,18Z"/></svg>
-                                        </a>
+                                        </a> --}}
+                                        <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="main__table-btn main__table-btn--delete">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path d="M10,18a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,10,18ZM20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Zm-3-1a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,14,18Z"/>
+                                                </svg>
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
+                            @endforeach 
                         </tbody>
                     </table>
                 </div>
