@@ -7,6 +7,7 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MemberController;
 use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 use App\Models\Movie;
@@ -56,9 +57,8 @@ Route::get('/', [HomeController::class, 'index'])->middleware(['auth', 'verified
 Route::get('/profile', ProfileController::class)->name('profile');
 Route::get('profile-info', ProfileController::class)->name('edit-user');
 
-// Route::get('/profile', function () {
-//     return view('settings.profile');
-// })->name('profile');
+// Member Routes
+// Route::resource('members', MemberController::class);
 
 Route::get('/subscribe', function () {
     return view('subscribe');
