@@ -37,9 +37,10 @@ use App\Models\Category;
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth', 'admin',]);
 
 Route::get('/', function () {
-    $movies = Movie::with('categories')->get();
+    $movies = Movie::all();
+    $categories = Category::all();
 
-    return view('index', ['movies' => $movies]);
+    return view('home', ['movies' => $movies, 'categories' => $categories]);
 })->middleware(['auth', 'verified'])->name('home');
 
 // Route::get('/home', function () {
