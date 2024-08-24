@@ -59,9 +59,9 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-sm-6 col-lg-3">
+                                <div class="col-12 col-sm-6 col-lg-6">
                                     <div class="form__group">
-                                        <input type="text" name="duration" class="form__input" placeholder="Running time in minutes" required>
+                                        <input type="text" name="duration" class="form__input" placeholder="Running time in Minute (0.00) as Second" required>
                                     </div>
                                 </div>
 
@@ -75,7 +75,6 @@
                                         </select>
                                     </div>
                                 </div>
-
                                 {{-- <div class="col-12 col-sm-6 col-lg-3">
                                     <div class="form__group">
                                         <input type="text" name="language[]" class="form__input" placeholder="language" multiple="multiple" required>

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('release_year');
-            $table->integer('duration'); // Duration in minutes
+            $table->double('duration'); // Duration in minutes
             $table->string('quality');
             $table->string('language');
             $table->string('cover_image')->nullable();
