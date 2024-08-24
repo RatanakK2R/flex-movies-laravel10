@@ -49,7 +49,7 @@
 			<img src="{{ asset('assets/img/logo.svg') }}" alt="">
 		</a>
 		<!-- end sidebar logo -->
-		
+
 		<!-- sidebar user -->
 		<div class="sidebar__user">
 			<div class="sidebar__user-img">
@@ -61,9 +61,9 @@
 				<span>Admin</span>
 				<p><a href="">{{ Auth::user()->name}}</a></p>
 			</div>
-			
+
 			<form action="{{route('logout')}}" method="POST" style="margin-left: 70px;">
-				@csrf	
+				@csrf
 				<button class="sidebar__user-btn">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,12a1,1,0,0,0,1,1h7.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4a1,1,0,0,0,.21-.33,1,1,0,0,0,0-.76,1,1,0,0,0-.21-.33l-4-4a1,1,0,1,0-1.42,1.42L12.59,11H5A1,1,0,0,0,4,12ZM17,2H7A3,3,0,0,0,4,5V8A1,1,0,0,0,6,8V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v3a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V5A3,3,0,0,0,17,2Z"/></svg>
 				</button>
@@ -82,7 +82,7 @@
 			</li>
 
 			<li class="sidebar__nav-item">
-				<a href=" {{route('movies.index')}} " class="sidebar__nav-link {{ request()->is('movies') ? 'sidebar__nav-link--active' : ''}}">
+				<a href=" {{route('movies.index')}} " class="sidebar__nav-link {{ request()->routeIs('movies.index', 'movies.edit') ? 'sidebar__nav-link--active' : '' }}">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" style="width: 8%;">
 					<path d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm4 0v6h8V1zm8 8H4v6h8zM1 1v2h2V1zm2 3H1v2h2zM1 7v2h2V7zm2 3H1v2h2zm-2 3v2h2v-2zM15 1h-2v2h2zm-2 3v2h2V4zm2 3h-2v2h2zm-2 3v2h2v-2zm2 3h-2v2h2z"/>
 				  </svg>
@@ -122,7 +122,7 @@
 			</li>
 
 			<li class="sidebar__nav-item">
-				<a href="{{ route('comments.index') }}" class="sidebar__nav-link {{ request()->is('comments.index') ? 'sidebar__nav-link--active' : '' }}">
+				<a href="{{ route('comments.index') }}" class="sidebar__nav-link {{ request()->is('comments') ? 'sidebar__nav-link--active' : '' }}">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 					<path d="M8,11a1,1,0,1,0,1,1A1,1,0,0,0,8,11Zm4,0a1,1,0,1,0,1,1A1,1,0,0,0,12,11Zm4,0a1,1,0,1,0,1,1A1,1,0,0,0,16,11ZM12,2A10,10,0,0,0,2,12a9.89,9.89,0,0,0,2.26,6.33l-2,2a1,1,0,0,0-.21,1.09A1,1,0,0,0,3,22h9A10,10,0,0,0,12,2Zm0,18H5.41l.93-.93a1,1,0,0,0,.3-.71,1,1,0,0,0-.3-.7A8,8,0,1,1,12,20Z"/>
 					</svg>
@@ -131,7 +131,7 @@
 			</li>
 
 			<li class="sidebar__nav-item">
-				<a href="{{ route('reviews.index') }}" class="sidebar__nav-link {{ request()->is('reviews.index') ? 'sidebar__nav-link--active' : '' }}">
+				<a href="{{ route('reviews.index') }}" class="sidebar__nav-link {{ request()->is('reviews') ? 'sidebar__nav-link--active' : '' }}">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 						<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/>
 					</svg>
@@ -146,7 +146,7 @@
 			</li>
 		</ul>
 		<!-- end sidebar nav -->
-		
+
 		<!-- sidebar copyright -->
 		<div class="sidebar__copyright">© FlixTV.template. <br>Create by <a href="#" target="_blank">K2R</a></div>
 		<!-- end sidebar copyright -->
