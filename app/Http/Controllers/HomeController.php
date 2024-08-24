@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $slider_movies = \App\Models\Movie::orderByDesc('id')->take(5)->get();
+        $slider_movies = Movie::orderByDesc('id')->take(5)->get();
 
         $years = Movie::select('release_year')->distinct()->pluck('release_year');
 

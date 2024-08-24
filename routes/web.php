@@ -41,11 +41,16 @@ Route::get('/', function () {
     return view('index', ['movies' => $movies]);
 })->middleware(['auth', 'verified'])->name('home');
 
-Route::get('/home', function () {
-    $movies = Movie::with('categories')->get();
+// Route::get('/home', function () {
+//     $movies = Movie::with('categories')->get();
 
-    return view('index', ['movies' => $movies]);
-})->middleware(['auth', 'verified'])->name('home');
+//     return view('index', ['movies' => $movies]);
+// })->middleware(['auth', 'verified'])->name('home');
+// Route::get('/home', function () {
+//     return view('home');
+// })->middleware(['auth', 'verified'])->name('home');
+
+Route::get('/', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
 
 // Profile Routes
 Route::get('/profile', ProfileController::class)->name('profile');
@@ -54,10 +59,6 @@ Route::get('profile-info', ProfileController::class)->name('edit-user');
 // Route::get('/profile', function () {
 //     return view('settings.profile');
 // })->name('profile');
-
-// Route::get('/add-item', function () {
-//     return view('add-item');
-// })->name('add-item');
 
 Route::get('/subscribe', function () {
     return view('subscribe');
