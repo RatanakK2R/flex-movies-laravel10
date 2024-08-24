@@ -21,7 +21,7 @@
 						</button>
 
 						<a href="{{route('home')}}" class="header__logo">
-							<img src="assets/img/logo.svg" alt="Movies & TV Shows, Online cinema HTML Template">
+							<img src="{{asset('assets/img/logo.svg')}}" alt="Movies & TV Shows, Online cinema HTML Template">
 						</a>
 
 						<ul class="header__nav">
@@ -129,8 +129,8 @@
 
 						@if (Auth::check() && Auth::user()->is_admin == 0)
 							<button class="sidebar__user-img" type="button">
-                                <a href="{{route('profile')}}" style="margin-left: 10px, size: 30px">
-								    <img src="assets/img/user.svg" alt="#" style="border-radius: 40%">
+                                <a href="{{route('profile')}}" style="margin-left: 10px; size: 30px;">
+								    <img src="{{asset('assets/img/user.svg')}}" alt="#" style="border-radius: 40%">
 									<span>{{ Auth::user()->name}}</span>
 								</a>
 							</button>

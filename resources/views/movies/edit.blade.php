@@ -67,7 +67,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-sm-6 col-lg-3">
+                                <div class="col-12 col-sm-6 col-lg-6">
                                     <div class="form__group">
                                         <input type="text" name="duration" class="form__input" placeholder="Running time in minutes" value="{{ $movie->duration }}">
                                     </div>
@@ -134,7 +134,7 @@
                                     <label for="type2">TV Show</label>
                                 </li>
                                 <li>
-                                    <input id="type3" type="radio" name="type" value="tv_show" {{ $movie->type == '3D' ? 'checked' : '' }}>
+                                    <input id="type3" type="radio" name="type" value="3D" {{ $movie->type == '3D' ? 'checked' : '' }}>
                                     <label for="type3">3D</label>
                                 </li>
                             </ul>
