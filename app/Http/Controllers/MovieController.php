@@ -100,7 +100,7 @@ class MovieController extends Controller
 
     public function show(Movie $movie)
     {
-        return view('movies.show', compact('movie'));
+        return view('movies.show', compact('movies'));
     }
 
     public function update(Request $request, Movie $movie)

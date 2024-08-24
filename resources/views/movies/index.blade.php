@@ -67,7 +67,7 @@
                             <tbody>
 								<tr>
 									<td>
-										<div class="main__table-text">{{ $movie->id }}</div>
+										<div class="main__table-text">{{ $loop->index+1 }}</div>
 									</td>
 									<td>
 										<div class="main__table-text">{{ $movie->title }}</div>

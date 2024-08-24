@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Settings\ProfileController;
@@ -36,9 +37,11 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/home', function () {
-    return view('index');
-})->middleware(['auth', 'verified'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
+
+// Route::get('/home', function () {
+//     return view('index');
+// })->middleware(['auth', 'verified'])->name('home');
 
 // Profile Routes
 Route::get('/profile', ProfileController::class)->name('profile');
