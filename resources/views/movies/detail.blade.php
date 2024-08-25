@@ -170,8 +170,6 @@
 									@endforeach
 									</ul>
 
-                                    {{ $comments->appends(['review_page' => $reviews->currentPage()])->links('pagination.review') }}
-
 									<form action="{{ route('comments.store') }}" method="POST" class="comments__form">
 										@csrf
 										<input type="hidden" name="movie_id" value="{{ $movie->id }}">
@@ -180,6 +178,8 @@
 										</div>
 										<button type="submit" class="sign__btn">Send</button>
 									</form>
+
+                                    {{ $comments->appends(['review_page' => $reviews->currentPage()])->links('pagination.review') }}
 								</div>
 								<!-- end comments -->
 
