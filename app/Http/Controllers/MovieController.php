@@ -100,22 +100,23 @@ class MovieController extends Controller
 
     public function show($id)
     {
-        $movie = Movie::with(['categories', 'comments.user_id', 'reviews.user_id'])->findOrFail($id);
+        // Retrieve the movie with its related categories
+        $movie = Movie::with('categories','comments.user', 'reviews.user')->findOrFail($id);
 
         $categories = $movie->categories;
-        $comments = $movie->comments; // Retrieve comments
-        $reviews = $movie->reviews;   // Retrieve reviews
-        $movies = Movie::all();       // Retrieve all movies
+        $comments = $movie->comments()->paginate(10, ['*'], 'comment_page');
+        $reviews = $movie->reviews()->paginate(10, ['*'], 'review_page');
+        $movies = Movie::where('status', 'Visible')->get();
 
         return view('movies.detail', [
             'movie' => $movie,
             'categories' => $categories,
+            'movies' => $movies,
             'comments' => $comments,
-            'reviews' => $reviews,
-            'movies' => $movies
+            'reviews' => $reviews
         ]);
     }
-    
+
     public function update(Request $request, Movie $movie)
     {
         $validated = $request->validate([
