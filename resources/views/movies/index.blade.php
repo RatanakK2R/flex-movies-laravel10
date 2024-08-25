@@ -54,9 +54,9 @@
 								<tr>
 									<th>ID</th>
 									<th>TITLE</th>
-									<th>Type</th>
-									<th>RATING</th>
+									<th>TYPE</th>
 									<th>CATEGORY</th>
+                                    <th>RATING</th>
 									<th>VIEWS</th>
 									<th>STATUS</th>
 									<th>CRAETED DATE</th>
@@ -76,14 +76,14 @@
 										<div class="main__table-text">{{ $movie->type }}</div>
 									</td>
 									<td>
-										<div class="main__table-text main__table-text--rate">
+										<div class="main__table-text">{{ $movie->categories->pluck('name')->join(', ') }}</div>
+									</td>
+                                    <td>
+                                        <div class="main__table-text main__table-text--rate">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/>
                                             </svg>{{ $movie->rating ?? '0' }}
                                         </div>
-									</td>
-									<td>
-										<div class="main__table-text">{{ $movie->categories->pluck('name')->join(', ') }}</div>
-									</td>
+                                    </td>
 									<td>
 										<div class="main__table-text">{{ $movie->views ?? '0' }}</div>
 									</td>
@@ -125,33 +125,14 @@
 							</tbody>
                             @endforeach
 						</table>
-                        {{ $movies->links() }}
+
 					</div>
 				</div>
 				<!-- end users -->
 
 				<!-- paginator -->
 				<div class="col-12">
-					<div class="paginator">
-						<span class="paginator__pages">10 from 14 452</span>
-
-						<ul class="paginator__paginator">
-							<li>
-								<a href="#">
-									<svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-								</a>
-							</li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li>
-								<a href="#">
-									<svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-								</a>
-							</li>
-						</ul>
-					</div>
+                    {{ $movies->appends(request()->query())->links('pagination.custom') }}
 				</div>
 				<!-- end paginator -->
 			</div>

@@ -101,7 +101,7 @@
                                     <td colspan="8" style="color: red">No reviews found.</td>
                                 </tr>
                                 @endforelse
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -126,7 +126,7 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>TITLE</th>
+                                    <th>COMMENT</th>
                                     <th>CATEGORY</th>
                                     <th>AUTHOR</th>
                                 </tr>
@@ -138,7 +138,7 @@
                                         <div class="main__table-text">{{ $loop->index+1 }}</div>
                                     </td>
                                     <td>
-                                        <div class="main__table-text"><a href="#"> {{$comment->text}} </a></div>
+                                        <div class="main__table-text"><a href="#"> {{ Str::limit($comment->text, 50, '...') }} </a></div>
                                     </td>
                                     <td>
                                         <div class="main__table-text">{{ $movie->categories->pluck('name')->join(', ') }}</div>
@@ -227,7 +227,7 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>ITEM</th>
+                                    <th>REVIEW</th>
                                     <th>AUTHOR</th>
                                     <th>RATING</th>
                                 </tr>
@@ -239,7 +239,7 @@
                                         <div class="main__table-text">{{ $loop->index+1 }}</div>
                                     </td>
                                     <td>
-                                        <div class="main__table-text"><a href="#"> {{$review->text}} </a></div>
+                                        <div class="main__table-text"><a href="#"> {{ Str::limit($review->text, 50) }} </a></div>
                                     </td>
                                     <td>
                                         <div class="main__table-text">{{ $review->user->name ?? 'Anonymous' }}</div>

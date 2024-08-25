@@ -30,7 +30,7 @@ class MovieController extends Controller
         }
 
         // Pagination
-        $movies = $query->with('categories', 'actors')->paginate(10);
+        $movies = $query->with('categories', 'actors')->paginate(8);
 
         return view('movies.index', compact('movies'));
     }

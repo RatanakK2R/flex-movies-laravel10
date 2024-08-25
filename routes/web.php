@@ -43,15 +43,6 @@ Route::get('/', function () {
     return view('home', ['movies' => $movies, 'categories' => $categories]);
 })->middleware(['auth', 'verified'])->name('home');
 
-// Route::get('/home', function () {
-//     $movies = Movie::with('categories')->get();
-
-//     return view('index', ['movies' => $movies]);
-// })->middleware(['auth', 'verified'])->name('home');
-// Route::get('/home', function () {
-//     return view('home');
-// })->middleware(['auth', 'verified'])->name('home');
-
 Route::get('/', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
 
 // Profile Routes
