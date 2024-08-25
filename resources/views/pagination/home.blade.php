@@ -1,55 +1,53 @@
 @if ($paginator->hasPages())
     <div class="catalog__paginator-wrap">
-        <span class="catalog__pages">{{ $paginator->lastPage() - $paginator->currentPage() + 1 }} from {{ $paginator->lastPage() }}</span>
+        <!-- Page count display with "Page 1 of ..." format -->
+        <span class="catalog__pages">Page {{ $paginator->currentPage() }} of {{ $paginator->lastPage() }}</span>
+
         <ul class="catalog__paginator">
             <!-- Previous Page Link -->
             @if ($paginator->onFirstPage())
-                <li class="disabled">
-                    <a href="#">
-                        <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
+                <li class="disabled" aria-disabled="true">
+                    <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
                 </li>
             @else
                 <li>
-                    <a href="{{ $paginator->previousPageUrl() }}">
+                    <a href="{{ $paginator->previousPageUrl() }}" rel="prev">
                         <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
                         </svg>
                     </a>
                 </li>
             @endif
 
             <!-- Page Numbers -->
-            @foreach ($elements[0] as $page => $url)
+            @for ($page = 1; $page <= $paginator->lastPage(); $page++)
                 @if ($page == $paginator->currentPage())
                     <li class="active"><a href="#">{{ $page }}</a></li>
                 @else
-                    <li><a href="{{ $url }}">{{ $page }}</a></li>
+                    <li><a href="{{ $paginator->url($page) }}">{{ $page }}</a></li>
                 @endif
-            @endforeach
+            @endfor
 
             <!-- Next Page Link -->
             @if ($paginator->hasMorePages())
                 <li>
-                    <a href="{{ $paginator->nextPageUrl() }}">
+                    <a href="{{ $paginator->nextPageUrl() }}" rel="next">
                         <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
                         </svg>
                     </a>
                 </li>
             @else
-                <li class="disabled">
-                    <a href="#">
-                        <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
+                <li class="disabled" aria-disabled="true">
+                    <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
                 </li>
             @endif
         </ul>
