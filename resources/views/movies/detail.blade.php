@@ -102,9 +102,11 @@
 						<!-- categories -->
 						<div class="categories">
 							<h3 class="categories__title">Category</h3>
-							<a href="category.html" class="categories__item">Action</a>
-							<a href="category.html" class="categories__item">Thriller</a>
-							<a href="category.html" class="categories__item">Crime</a>
+							@foreach ($categories as $category)
+							<a href="{{ route('category.show', ['id' => $category->id]) }}" class="categories__item">
+								{{ $category->name }}
+							</a>
+							@endforeach
 						</div>
 						<!-- end categories -->
 

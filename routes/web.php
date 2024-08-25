@@ -106,3 +106,9 @@ Route::get('detail/{id}', function ($id) {
 
     return view('movies/detail', ['movie' => $movie, 'categories' => $categories, 'movies' => $movies, 'comments' => $comments, 'reviews' => $reviews]);
 })->name('detail');
+
+Route::get('category/{id}', function ($id) {
+    $category = Category::findOrFail($id);
+    $movies = $category->movies; // Assuming you have a relationship set up
+    return view('category-details', ['category' => $category, 'movies' => $movies]);
+})->name('category.show');
