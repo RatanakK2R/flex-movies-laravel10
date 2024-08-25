@@ -106,6 +106,7 @@ Route::get('detail/{id}', function ($id) {
     $movie = Movie::with('categories')->findOrFail($id);
 
     $categories = $movie->categories;
+    $movies = Movie::all();
 
-    return view('movies/detail', ['movie' => $movie, 'categories' => $categories]);
+    return view('movies/detail', ['movie' => $movie, 'categories' => $categories, 'movies' => $movies]);
 })->name('detail');

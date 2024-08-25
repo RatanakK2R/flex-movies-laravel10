@@ -120,8 +120,8 @@
 						@endif
 						@if (Auth::check() && Auth::user()->is_admin == 1)
 							<button class="sidebar__user-img" type="button">
-                                <a href="{{route('dashboard')}}" style="margin-left: 10px, size: 30px">
-								    <img src="assets/img/user.svg" alt="#" style="border-radius: 40%">
+                                <a href="{{route('dashboard')}}" style="margin-left: 10px; size: 30px;">
+								    <img src="{{ asset('assets/img/user.svg') }}" alt="#" style="border-radius: 40%">
 									<span>{{ Auth::user()->name}}</span>
 								</a>
 							</button>
