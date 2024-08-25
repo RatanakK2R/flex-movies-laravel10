@@ -62,7 +62,7 @@
                         <h3><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,6a1,1,0,0,0-1,1V17a1,1,0,0,0,2,0V7A1,1,0,0,0,12,6ZM7,12a1,1,0,0,0-1,1v4a1,1,0,0,0,2,0V13A1,1,0,0,0,7,12Zm10-2a1,1,0,0,0-1,1v6a1,1,0,0,0,2,0V11A1,1,0,0,0,17,10Zm2-8H5A3,3,0,0,0,2,5V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V5A3,3,0,0,0,19,2Zm1,17a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V5A1,1,0,0,1,5,4H19a1,1,0,0,1,1,1Z"/></svg> Top items</h3>
 
                         <div class="dashbox__wrap">
-                            <a class="dashbox__refresh" href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,11a1,1,0,0,0-1,1,8.05,8.05,0,1,1-2.22-5.5h-2.4a1,1,0,0,0,0,2h4.53a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4.77A10,10,0,1,0,22,12,1,1,0,0,0,21,11Z"/></svg></a>
+                            <a class="dashbox__refresh" href="{{route('dashboard')}} " {{ request()->is('dashboard') ? 'sidebar__nav-link--active' : ''}}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,11a1,1,0,0,0-1,1,8.05,8.05,0,1,1-2.22-5.5h-2.4a1,1,0,0,0,0,2h4.53a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4.77A10,10,0,1,0,22,12,1,1,0,0,0,21,11Z"/></svg></a>
                             <a class="dashbox__more" href="{{route('movies.index')}}">View All</a>
                         </div>
                     </div>
@@ -71,10 +71,11 @@
                         <table class="main__table main__table--dash">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>NO</th>
                                     <th>TITLE</th>
                                     <th>CATEGORY</th>
                                     <th>RATING</th>
+                                    <th>VIEW</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -93,7 +94,11 @@
                                         <div class="main__table-text main__table-text--rate">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                                 <path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/>
-                                            </svg> {{ $movie->views ?? '0'}}</div>
+                                            </svg> {{ $movie->views ?? '0'}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="main__table-text">{{ $movie->views ?? '0'}}</div>
                                     </td>
                                 </tr>
                                 @empty
@@ -116,7 +121,7 @@
                         <h3><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10,13H3a1,1,0,0,0-1,1v7a1,1,0,0,0,1,1h7a1,1,0,0,0,1-1V14A1,1,0,0,0,10,13ZM9,20H4V15H9ZM21,2H14a1,1,0,0,0-1,1v7a1,1,0,0,0,1,1h7a1,1,0,0,0,1-1V3A1,1,0,0,0,21,2ZM20,9H15V4h5Zm1,4H14a1,1,0,0,0-1,1v7a1,1,0,0,0,1,1h7a1,1,0,0,0,1-1V14A1,1,0,0,0,21,13Zm-1,7H15V15h5ZM10,2H3A1,1,0,0,0,2,3v7a1,1,0,0,0,1,1h7a1,1,0,0,0,1-1V3A1,1,0,0,0,10,2ZM9,9H4V4H9Z"/></svg> Latest items</h3>
 
                         <div class="dashbox__wrap">
-                            <a class="dashbox__refresh" href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,11a1,1,0,0,0-1,1,8.05,8.05,0,1,1-2.22-5.5h-2.4a1,1,0,0,0,0,2h4.53a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4.77A10,10,0,1,0,22,12,1,1,0,0,0,21,11Z"/></svg></a>
+                            <a class="dashbox__refresh" href="{{route('dashboard')}} " {{ request()->is('dashboard') ? 'sidebar__nav-link--active' : ''}}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,11a1,1,0,0,0-1,1,8.05,8.05,0,1,1-2.22-5.5h-2.4a1,1,0,0,0,0,2h4.53a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4.77A10,10,0,1,0,22,12,1,1,0,0,0,21,11Z"/></svg></a>
                             <a class="dashbox__more" href="{{route('movies.index')}}">View All</a>
                         </div>
                     </div>
@@ -125,26 +130,38 @@
                         <table class="main__table main__table--dash">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>COMMENT</th>
+                                    <th>NO</th>
+                                    <th>TITLE</th>
+                                    <th>TYPE</th>
                                     <th>CATEGORY</th>
-                                    <th>AUTHOR</th>
+                                    <th>STATUS</th>
+                                    <th>CRAETED DATE</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($comments as $comment)
+                                @forelse ($movies as $movie)
                                 <tr>
                                     <td>
                                         <div class="main__table-text">{{ $loop->index+1 }}</div>
                                     </td>
                                     <td>
-                                        <div class="main__table-text"><a href="#"> {{ Str::limit($comment->text, 50, '...') }} </a></div>
+                                        <div class="main__table-text"><a href="#"> {{ $movie->title }} </a></div>
+                                    </td>
+                                    <td>
+                                        <div class="main__table-text">{{ $movie->type }}</div>
                                     </td>
                                     <td>
                                         <div class="main__table-text">{{ $movie->categories->pluck('name')->join(', ') }}</div>
                                     </td>
                                     <td>
-                                        <div class="main__table-text main__table-text--green">{{ $comment->user->name ?? 'Anonymous' }}</div>
+                                        @if ($movie->status === 'Visible')
+                                            <div class="main__table-text main__table-text--green">Visible</div>
+                                        @else
+                                            <div class="main__table-text main__table-text--red">Hidden</div>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="main__table-text">{{ $movie->created_at->format('d M Y') }}</div>
                                     </td>
                                 </tr>
                                 @empty
@@ -167,7 +184,7 @@
                             Latest users</h3>
 
                         <div class="dashbox__wrap">
-                            <a class="dashbox__refresh" href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,11a1,1,0,0,0-1,1,8.05,8.05,0,1,1-2.22-5.5h-2.4a1,1,0,0,0,0,2h4.53a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4.77A10,10,0,1,0,22,12,1,1,0,0,0,21,11Z"/></svg></a>
+                            <a class="dashbox__refresh" href="{{route('dashboard')}} " {{ request()->is('dashboard') ? 'sidebar__nav-link--active' : ''}}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,11a1,1,0,0,0-1,1,8.05,8.05,0,1,1-2.22-5.5h-2.4a1,1,0,0,0,0,2h4.53a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4.77A10,10,0,1,0,22,12,1,1,0,0,0,21,11Z"/></svg></a>
                             <a class="dashbox__more" href="{{ route('users.index') }}">View All</a>
                         </div>
                     </div>
@@ -176,7 +193,8 @@
                         <table class="main__table main__table--dash">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>NO</th>
+                                    <th>USER ID</th>
                                     <th>FULL NAME</th>
                                     <th>EMAIL</th>
                                     <th>DURATION</th>
@@ -187,6 +205,9 @@
                                 <tr>
                                     <td>
                                         <div class="main__table-text">{{ $loop->index+1 }}</div>
+                                    </td>
+                                    <td>
+                                        <div class="main__table-text">{{ $user->id }}</div>
                                     </td>
                                     <td>
                                         <div class="main__table-text"><a href="#"> {{$user->name}} </a></div>
@@ -217,7 +238,7 @@
                         <h3><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg> Latest reviews</h3>
 
                         <div class="dashbox__wrap">
-                            <a class="dashbox__refresh" href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,11a1,1,0,0,0-1,1,8.05,8.05,0,1,1-2.22-5.5h-2.4a1,1,0,0,0,0,2h4.53a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4.77A10,10,0,1,0,22,12,1,1,0,0,0,21,11Z"/></svg></a>
+                            <a class="dashbox__refresh" href="{{route('dashboard')}} " {{ request()->is('dashboard') ? 'sidebar__nav-link--active' : ''}}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,11a1,1,0,0,0-1,1,8.05,8.05,0,1,1-2.22-5.5h-2.4a1,1,0,0,0,0,2h4.53a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4.77A10,10,0,1,0,22,12,1,1,0,0,0,21,11Z"/></svg></a>
                             <a class="dashbox__more" href="{{ route('reviews.index') }}">View All</a>
                         </div>
                     </div>
@@ -226,8 +247,9 @@
                         <table class="main__table main__table--dash">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>REVIEW</th>
+                                    <th>NO</th>
+                                    <th>REVIEW TEXT</th>
+                                    <th>USER ID</th>
                                     <th>AUTHOR</th>
                                     <th>RATING</th>
                                 </tr>
@@ -240,6 +262,9 @@
                                     </td>
                                     <td>
                                         <div class="main__table-text"><a href="#"> {{ Str::limit($review->text, 50) }} </a></div>
+                                    </td>
+                                    <td>
+                                        <div class="main__table-text">{{ $review->user->id }}</div>
                                     </td>
                                     <td>
                                         <div class="main__table-text">{{ $review->user->name ?? 'Anonymous' }}</div>
