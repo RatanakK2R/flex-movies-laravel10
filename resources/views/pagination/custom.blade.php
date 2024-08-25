@@ -23,6 +23,10 @@
             @endif
 
             {{-- Pagination Elements --}}
+            @php
+                $elements = array_reverse($elements);
+            @endphp
+
             @foreach ($elements as $element)
                 {{-- "Three Dots" Separator --}}
                 @if (is_string($element))

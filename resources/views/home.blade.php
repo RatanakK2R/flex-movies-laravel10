@@ -5,7 +5,6 @@
     <div class="home">
         <div class="home__carousel owl-carousel" id="flixtv-hero">
             @foreach($movies as $movie)
-                @if($movie->status === 'Visible')
                 <div class="home__card">
                     <a href="{{route('detail', ['id' => $movie->id]) }}">
                         <img src="{{ asset('storage/cover_images/' . $movie->cover_image) }}" alt="{{ $movie->title }}" style="width: 414px; height: 550px;">
@@ -24,7 +23,6 @@
 						<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/>
 					</svg>{{ $movie->views ?? '0'}}</span>
                 </div>
-                @endif
             @endforeach
         </div>
 
@@ -66,8 +64,7 @@
                     </div>
 
                     <div class="row row--grid">
-                        @forelse ($movies as $movie)
-                            @if($movie->status === 'Visible')
+                        @forelse ($pagmovie as $movie)
                             <div class="col-12 col-md-6 col-xl-4">
                                 <div class="card card--big">
                                     <a href="{{route('detail', ['id' => $movie->id]) }}" class="card__cover"  style="width: 192px; height: 270px;">
@@ -104,7 +101,6 @@
                                     </div>
                                 </div>
                             </div>
-                            @endif
                         @empty
                             <tr>
                                 <p class="text-center" style="color: red">No movies found./p>
@@ -117,26 +113,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <div class="catalog__paginator-wrap">
-                        <span class="catalog__pages">12 from 144</span>
-
-                        <ul class="catalog__paginator">
-                            <li>
-                                <a href="#">
-                                    <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                </a>
-                            </li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li>
-                                <a href="#">
-                                    <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    {{ $pagmovie->appends(request()->query())->links('pagination.home') }}
                 </div>
             </div>
         </div>
@@ -259,7 +236,7 @@
 										</svg> {{ $movie->formatted_duration }}
 									</span>
                                     </a>
-                                    <h3 class="interview__title"><a href="interview.html">{{ $movie->title }}</a></h3>
+                                    <h3 class="interview__title"><a href="{{route('detail', ['id' => $movie->id]) }}">{{ $movie->title }}</a></h3>
                                 </div>
                             @endforeach
                         </div>

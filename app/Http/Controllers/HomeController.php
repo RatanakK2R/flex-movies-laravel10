@@ -8,19 +8,24 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        // Slider Movies: Most recent 5 movies
         $slider_movies = Movie::orderByDesc('id')->take(5)->get();
 
+        // Distinct Release Years
         $years = Movie::select('release_year')->distinct()->pluck('release_year');
 
+        // All Categories
         $categories = Category::all();
-        // Fetch movies to display on the home page (you can customize the query as needed)
-        $movies = Movie::all(); // Or use a more specific query, like `latest()->take(12)->get();`
 
-        return view('home', get_defined_vars());
-        
-        // Pass the data to the home view
-        // return view('home', compact('movies'));
+        //All Movies
+        $movies = Movie::where('status', 'Visible')->get();
+
+        // Paginate Movies for the Home Page
+        $pagmovie = Movie::where('status', 'Visible')->orderByDesc('id')->paginate(9);
+
+        // Pass the data to the view
+        return view('home', compact('slider_movies', 'years', 'categories', 'movies', 'pagmovie'));
     }
 }
