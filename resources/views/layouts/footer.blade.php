@@ -4,7 +4,7 @@
 			<div class="row">
 				<div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 order-4 order-md-1 order-lg-4 order-xl-1">
 					<div class="footer__flixtv">
-						<img src="assets/img/logo.svg" alt="" style="width: 200px;">
+						<img src="{{asset('assets/img/logo.svg')}}" alt="" style="width: 200px;">
 					</div>
 					<p class="footer__tagline">Movies & TV Shows, Online cinema,<br> Movie database HTML Template.</p>
 					<div class="footer__social">

@@ -98,11 +98,24 @@ class MovieController extends Controller
         return view('movies.edit', compact('movie', 'categories', 'actors'));
     }
 
-    public function show(Movie $movie)
+    public function show($id)
     {
-        return view('movies.show', compact('movies'));
-    }
+        $movie = Movie::with(['categories', 'comments.user_id', 'reviews.user_id'])->findOrFail($id);
 
+        $categories = $movie->categories;
+        $comments = $movie->comments; // Retrieve comments
+        $reviews = $movie->reviews;   // Retrieve reviews
+        $movies = Movie::all();       // Retrieve all movies
+
+        return view('movies.detail', [
+            'movie' => $movie,
+            'categories' => $categories,
+            'comments' => $comments,
+            'reviews' => $reviews,
+            'movies' => $movies
+        ]);
+    }
+    
     public function update(Request $request, Movie $movie)
     {
         $validated = $request->validate([

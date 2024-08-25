@@ -1,6 +1,6 @@
 		<!-- Favicons -->
-		<link rel="icon" type="image/png" href="assets/icon/favicon-32x32.png" sizes="32x32">
-		<link rel="apple-touch-icon" href="assets/icon/favicon-32x32.png">
+		<link rel="icon" type="image/png" href="{{asset('assets/icon/favicon-32x32.png')}}" sizes="32x32">
+		<link rel="apple-touch-icon" href="{{asset('assets/icon/favicon-32x32.png')}}">
 
 		<meta name="description" content="">
 		<meta name="keywords" content="">

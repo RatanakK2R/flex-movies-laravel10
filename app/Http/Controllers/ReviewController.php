@@ -14,9 +14,10 @@ class ReviewController extends Controller
         return view('reviews.index', compact('reviews'));
     }
 
-    public function show(Review $review)
+    public function show()
     {
-        return view('reviews.show', compact('review'));
+        $reviews = Review::with('user', 'movie')->paginate(8);
+        return view('movies.detail', compact('reviews'));
     }
 
     public function create()
@@ -40,7 +41,7 @@ class ReviewController extends Controller
             'rating' => $request->rating,
         ]);
 
-        return redirect()->route('reviews.index')->with('success', 'Review created successfully!');
+        return redirect()->route('detail', ['id' => $request->movie_id])->with('success', 'Review added successfully!');
     }
 
     public function edit(Review $review)

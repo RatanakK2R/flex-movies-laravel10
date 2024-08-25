@@ -84,20 +84,25 @@ Route::post('movies/create', [App\Http\Controllers\MovieController::class, 'crea
 Route::delete('/movies/{id}', [MovieController::class, 'destroy'])->name('movies.destroy');
 
 //Movies Comment
+Route::post('movies/detail', [CommentController::class, 'store'])->name('comments.store');
 Route::resource('comments', CommentController::class);
 
 //Movies Reeview
 Route::resource('reviews', ReviewController::class);
+Route::post('movies/detail', [ReviewController::class, 'store'])->name('reviews.store');
 
 //Update Status
 Route::patch('/movies/{id}/update-status', [MovieController::class, 'updateStatus'])->name('movies.updateStatus');
+Route::get('detail/{id}', [MovieController::class, 'show'])->name('detail');
 
 //Movie detail
 Route::get('detail/{id}', function ($id) {
-    $movie = Movie::with('categories')->findOrFail($id);
+    $movie = Movie::with('categories','comments.user', 'reviews.user')->findOrFail($id);
 
     $categories = $movie->categories;
     $movies = Movie::all();
+    $comments = $movie->comments; // Retrieve comments
+    $reviews = $movie->reviews;
 
-    return view('movies/detail', ['movie' => $movie, 'categories' => $categories, 'movies' => $movies]);
+    return view('movies/detail', ['movie' => $movie, 'categories' => $categories, 'movies' => $movies, 'comments' => $comments, 'reviews' => $reviews]);
 })->name('detail');

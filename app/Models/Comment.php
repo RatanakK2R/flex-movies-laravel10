@@ -11,13 +11,13 @@ class Comment extends Model
 
     protected $fillable = ['movie_id', 'user_id', 'text', 'likes', 'dislikes'];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function movie()
     {
         return $this->belongsTo(Movie::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
