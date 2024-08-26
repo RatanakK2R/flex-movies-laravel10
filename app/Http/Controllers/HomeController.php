@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Movie;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -15,6 +16,9 @@ class HomeController extends Controller
 
         // Distinct Release Years
         $years = Movie::select('release_year')->distinct()->pluck('release_year');
+
+        // All Of Review
+        $reviews = Review::all();
 
         // All Categories
         $categories = Category::all();
