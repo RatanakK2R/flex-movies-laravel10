@@ -26,10 +26,12 @@ class HomeController extends Controller
         //All Movies
         $movies = Movie::where('status', 'Visible')->get();
 
+        $reviews = Review::whereIn('movie_id', $movies->pluck('id'))->get();
+
         // Paginate Movies for the Home Page
         $pagmovie = Movie::where('status', 'Visible')->orderByDesc('id')->paginate(9);
 
         // Pass the data to the view
-        return view('home', compact('slider_movies', 'years', 'categories', 'movies', 'pagmovie'));
+        return view('home', compact('slider_movies', 'years', 'categories', 'movies', 'pagmovie', 'reviews'));
     }
 }

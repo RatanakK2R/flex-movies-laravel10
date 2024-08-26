@@ -112,5 +112,5 @@ Route::get('detail/{id}', [MovieController::class, 'show'])->name('detail');
 Route::get('category/{id}', function ($id) {
     $category = Category::findOrFail($id);
     $movies = $category->movies; // Assuming you have a relationship set up
-    return view('category-details', ['category' => $category, 'movies' => $movies]);
+    return view('movies.detail', ['category' => $category, 'movies' => $movies]);
 })->name('category.show');

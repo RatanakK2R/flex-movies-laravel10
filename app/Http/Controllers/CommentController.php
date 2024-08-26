@@ -26,12 +26,14 @@ class CommentController extends Controller
         $request->validate([
             'movie_id' => 'required|exists:movies,id',
             'text' => 'required|string',
+            'likes' => 'required|int',
         ]);
 
         Comment::create([
             'user_id' => auth()->id(),
             'movie_id' => $request->movie_id,
             'text' => $request->text,
+            'likes' => $request->like,
         ]);
 
         return redirect()->route('detail', ['id' => $request->movie_id])->with('success', 'Comment added successfully!');
