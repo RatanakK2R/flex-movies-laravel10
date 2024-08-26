@@ -4245,7 +4245,7 @@ body::-webkit-scrollbar-thumb {
     left: 0;
     top: 20px;
 }
-.comments__rate button {
+.comments__rate form {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -4256,24 +4256,24 @@ body::-webkit-scrollbar-thumb {
     position: relative;
     height: 20px;
 }
-.comments__rate button svg {
+.comments__rate form svg {
     width: 16px;
     height: auto;
     opacity: 0.7;
     transition: 0.5s;
 }
-.comments__rate button:last-child {
+.comments__rate form:last-child {
     margin-right: 0;
 }
-.comments__rate button:last-child svg {
+.comments__rate form:last-child svg {
     margin-left: 10px;
     stroke: #eb5757;
 }
-.comments__rate button:first-child svg {
+.comments__rate form:first-child svg {
     margin-right: 10px;
     stroke: #29b474;
 }
-.comments__rate button:first-child:before {
+.comments__rate form:first-child:before {
     content: "";
     position: absolute;
     display: block;
@@ -4285,10 +4285,10 @@ body::-webkit-scrollbar-thumb {
     top: 50%;
     transform: translateY(-50%);
 }
-.comments__rate button:hover {
+.comments__rate form:hover {
     color: #fff;
 }
-.comments__rate button:hover svg {
+.comments__rate form:hover svg {
     opacity: 1;
 }
 .comments__form {

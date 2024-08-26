@@ -39,11 +39,21 @@ class CommentController extends Controller
         return redirect()->route('detail', ['id' => $request->movie_id])->with('success', 'Comment added successfully!');
     }
 
-    public function destroy($id)
+    public function like($id)
     {
         $comment = Comment::findOrFail($id);
-        $comment->delete();
+        $comment->likes += 1;
+        $comment->save();
 
-        return redirect()->route('comments.index')->with('success', 'Comment deleted successfully');
+        return redirect()->back();
+    }
+
+    public function dislike($id)
+    {
+        $comment = Comment::findOrFail($id);
+        $comment->dislikes += 1;
+        $comment->save();
+
+        return redirect()->back();
     }
 }

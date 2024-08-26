@@ -86,6 +86,9 @@ Route::delete('/movies/{id}', [MovieController::class, 'destroy'])->name('movies
 //Movies Comment
 Route::post('movies/detail', [CommentController::class, 'store'])->name('comments.store');
 Route::resource('comments', CommentController::class);
+// Route::post('comments/{id}/{action}', [CommentController::class, 'updateLikeDislike']);
+Route::post('comments/{id}/like', [CommentController::class, 'like'])->name('comment.like');
+Route::post('comments/{id}/dislike', [CommentController::class, 'dislike'])->name('comment.dislike');
 
 //Movies Reeview
 Route::resource('reviews', ReviewController::class);
