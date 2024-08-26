@@ -96,16 +96,18 @@ Route::patch('/movies/{id}/update-status', [MovieController::class, 'updateStatu
 Route::get('detail/{id}', [MovieController::class, 'show'])->name('detail');
 
 //Movie detail
-Route::get('detail/{id}', function ($id) {
-    $movie = Movie::with('categories','comments.user', 'reviews.user')->findOrFail($id);
+//Route::get('detail/{id}', function ($id) {
+//    $movie = Movie::with('categories','comments.user', 'reviews.user')->findOrFail($id);
+//
+//    $categories = $movie->categories;
+//    $movies = Movie::all();
+//    $comments = $movie->comments; // Retrieve comments
+//    $reviews = $movie->reviews;
+//
+//    return view('movies/detail', ['movie' => $movie, 'categories' => $categories, 'movies' => $movies, 'comments' => $comments, 'reviews' => $reviews]);
+//})->name('detail');
 
-    $categories = $movie->categories;
-    $movies = Movie::all();
-    $comments = $movie->comments; // Retrieve comments
-    $reviews = $movie->reviews;
-
-    return view('movies/detail', ['movie' => $movie, 'categories' => $categories, 'movies' => $movies, 'comments' => $comments, 'reviews' => $reviews]);
-})->name('detail');
+Route::get('detail/{id}', [MovieController::class, 'show'])->name('detail');
 
 Route::get('category/{id}', function ($id) {
     $category = Category::findOrFail($id);

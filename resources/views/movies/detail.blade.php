@@ -171,27 +171,6 @@
 									@endforeach
 									</ul>
 
-									<div class="catalog__paginator-wrap catalog__paginator-wrap--comments">
-										<span class="catalog__pages">5 from 16</span>
-
-										<ul class="catalog__paginator">
-											<li>
-												<a href="#">
-													<svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-												</a>
-											</li>
-											<li class="active"><a href="#">1</a></li>
-											<li><a href="#">2</a></li>
-											<li><a href="#">3</a></li>
-											<li><a href="#">4</a></li>
-											<li>
-												<a href="#">
-													<svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-												</a>
-											</li>
-										</ul>
-									</div>
-
 									<form action="{{ route('comments.store') }}" method="POST" class="comments__form">
 										@csrf
 										<input type="hidden" name="movie_id" value="{{ $movie->id }}">
@@ -200,6 +179,8 @@
 										</div>
 										<button type="submit" class="sign__btn">Send</button>
 									</form>
+
+                                    {{ $comments->appends(['review_page' => $reviews->currentPage()])->links('pagination.review') }}
 								</div>
 								<!-- end comments -->
 
@@ -286,7 +267,9 @@
 											</div>
 										</div>
 									</form> --}}
+                                    {{ $reviews->appends(['comment_page' => $comments->currentPage()])->links('pagination.review') }}
 								</div>
+
 								<!-- end reviews -->
 							</div>
 							<!-- end tabs -->
@@ -319,7 +302,7 @@
 								<div class="col-12">
 									<h5 class="sidebar__title">New items</h5>
 								</div>
-								
+
 								@foreach($movies as $movie)
 								<div class="col-6 col-sm-4 col-md-3 col-xl-6">
 									<div class="card">
